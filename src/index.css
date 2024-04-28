@@ -1,13 +1,227 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*:focus {
+    outline: rgb(190, 2, 197) solid 4px;
+    border-color: rgb(99, 7, 90);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@media only screen and (min-width: 1024px) {
+    button {
+        width: max(192px, 20%);
+        margin: 12px auto 0 auto;
+    }
+
+    h1 {
+        padding: 48px 0 24px 0;
+    }
+
+    input {
+        width: max(184px, calc(20% - 8px));
+        margin: auto;
+    }
+
+    label {
+        margin: auto;
+    }
+
+    select {
+        width: max(192px, 20%);
+        margin: auto;
+    }
+
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        padding: 0 min(228px, 24vw) 0 min(228px, 24vw);
+        gap: 12px;
+    }
+
+    .labelContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .result {
+        padding: 10px;
+        margin: 10px auto 0 auto;
+        width: max(192px, 20%);
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    button {
+        margin-top: 16px;
+    }
+
+    h1 {
+        padding: min(36px, 5vw) 0 min(36px, 5vw) 0;
+    }
+
+    input {
+        width: calc(100% - 8px);
+    }
+
+    select {
+        width: 100%;
+    }
+
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        padding: 0 min(228px, 24vw) 0 min(228px, 24vw);
+        gap: 12px;
+    }
+
+    .labelContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .result {
+        padding: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    button {
+        margin-top: 12px;
+    }
+
+    h1 {
+        padding: min(24px, 4.5vw) 0 min(24px, 4.5vw) 0;
+    }
+
+    input {
+        width: calc(100% - 8px);
+    }
+
+    select {
+        width: 100%;
+    }
+
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        padding: 0 min(128px, 24vw) 0 min(128px, 24vw);
+        gap: 12px;
+    }
+
+    .labelContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 4px;
+    }
+
+    .result {
+        padding: 8px;
+        margin-top: 8px;
+    }
+}
+
+@media only screen and (max-width: 384px) {
+    body {
+        width: 384px;
+    }
+
+    button {
+        margin: 0;
+    }
+
+    h1 {
+        padding: 16px 0 16px 0;
+    }
+
+    input {
+        width: 120px;
+    }
+
+    select {
+        width: 128px;
+    }
+
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        padding: 0 64px 0 64px;
+        gap: 8px;
+    }
+
+    .labelContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .result {
+        padding: 6px;
+    }
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    min-width: 384px;
+    background-color: rgb(255, 196, 249);
+    margin-bottom: 24px;
+}
+
+button {
+    background-color: rgb(232, 232, 232);
+    border: 2px static rgb(73, 73, 73);
+    border-radius: 8px;
+    font-size: large;
+}
+
+button:hover {
+    background-color: rgb(193, 193, 193);
+    cursor: pointer;
+}
+
+button:active {
+    background-color: rgb(153, 153, 153);
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: rgb(211, 211, 211);
+    border-color: rgb(184, 184, 184);
+    cursor: not-allowed;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+input {
+    border-radius: 4px;
+    background-color: rgb(252, 252, 252);
+}
+
+input:hover {
+    background-color: rgb(237, 237, 237);
+}
+
+label {
+    font-size: large;
+}
+
+select {
+    border-radius: 4px;
+    background-color: rgb(252, 252, 252);
+}
+
+select:hover {
+    background-color: rgb(237, 237, 237);
+}
+
+.result {
+    background-color: rgb(227, 240, 251);
+    text-align: center;
 }
