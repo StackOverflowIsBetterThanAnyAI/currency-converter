@@ -1,5 +1,5 @@
-*:focus {
-    outline: rgb(190, 2, 197) solid 4px;
+*:focus-visible {
+    outline: rgb(190, 2, 197) solid 2px;
     border-color: rgb(99, 7, 90);
 }
 
