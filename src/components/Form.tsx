@@ -9,7 +9,6 @@ const Form = () => {
     const [currencyTo, setCurrencyTo] = useState<string>('CHF')
     const [resultText, setResultText] = useState<string>('')
     const currentURL = 'https://api.api-ninjas.com/v1/convertcurrency'
-
     const handleCurrentAmount = (e: ChangeEvent<HTMLInputElement>) => {
         !isNaN(parseFloat(e.target.value))
             ? setCurrentAmount(parseInt(e.target.value))
@@ -26,24 +25,27 @@ const Form = () => {
 
     const handleConvertion = async () => {
         const url = `${currentURL}?have=${currencyFrom}&want=${currencyTo}&amount=${currentAmount}`
-        let conversion: number
-        fetch(url, {
-            headers: {
-                'X-API-KEY': API_KEY,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                conversion = data.new_amount
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'X-API-KEY': API_KEY,
+                },
             })
-            .then(() =>
-                setResultText(
-                    `${currentAmount} ${currencyFrom} equals ${conversion} ${currencyTo}`
+            const data = await response.json()
+            const conversion = await (data as any).new_amount
+            conversion
+                ? setResultText(
+                      `${currentAmount} ${currencyFrom} equals ${conversion} ${currencyTo}`
+                  )
+                : setResultText(`HTTP error! Status: ${response.status}`)
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP error! Status: ${response.status} on ${response.url}`
                 )
-            )
-            .catch((error) => {
-                console.log('Request failed: ', error)
-            })
+            }
+        } catch (error: any) {
+            console.error('Request failed: ', error.message)
+        }
     }
 
     return (
