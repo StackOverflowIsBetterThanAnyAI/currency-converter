@@ -50,11 +50,21 @@ const Form = () => {
                 ? setResultText(
                       `${currentAmount} ${currencyFrom} equals ${conversion} ${currencyTo}`
                   )
-                : setResultText(`HTTP error! Status: ${response.status}`)
+                : !response.ok
+                ? setResultText(`HTTP error! Status: ${response.status}`)
+                : setResultText(
+                      `JSON Error! Received ${conversion} for new_amount`
+                  )
 
             if (!response.ok) {
                 throw new Error(
                     `HTTP error! Status: ${response.status} on ${response.url}`
+                )
+            }
+
+            if (!conversion) {
+                throw new Error(
+                    `JSON Error! Received ${conversion} for new_amount`
                 )
             }
         } catch (error: any) {
