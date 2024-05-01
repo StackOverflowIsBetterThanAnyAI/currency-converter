@@ -8,7 +8,15 @@ const Form = () => {
     const [currencyFrom, setCurrencyFrom] = useState<string>('AUD')
     const [currencyTo, setCurrencyTo] = useState<string>('CHF')
     const [resultText, setResultText] = useState<string>('')
-    const currentURL = 'https://api.api-ninjas.com/v1/convertcurrency'
+    const [loading, setLoading] = useState(false)
+    const [toggleHidden, setToggleHidden] = useState({
+        one: false,
+        two: false,
+        three: false,
+    })
+    const apiURL = 'https://api.api-ninjas.com/v1/convertcurrency'
+    let loadConst = false
+
     const handleCurrentAmount = (e: ChangeEvent<HTMLInputElement>) => {
         !isNaN(parseFloat(e.target.value))
             ? setCurrentAmount(parseInt(e.target.value))
@@ -23,8 +31,13 @@ const Form = () => {
         setCurrencyTo(e.target.value)
     }
 
-    const handleConvertion = async () => {
-        const url = `${currentURL}?have=${currencyFrom}&want=${currencyTo}&amount=${currentAmount}`
+    const handleConversion = async () => {
+        const url = `${apiURL}?have=${currencyFrom}&want=${currencyTo}&amount=${currentAmount}`
+
+        setLoading(true)
+        loadConst = true
+        startLoadingAnimation({ counter: 1 })
+
         try {
             const response = await fetch(url, {
                 headers: {
@@ -38,6 +51,7 @@ const Form = () => {
                       `${currentAmount} ${currencyFrom} equals ${conversion} ${currencyTo}`
                   )
                 : setResultText(`HTTP error! Status: ${response.status}`)
+
             if (!response.ok) {
                 throw new Error(
                     `HTTP error! Status: ${response.status} on ${response.url}`
@@ -45,6 +59,62 @@ const Form = () => {
             }
         } catch (error: any) {
             console.error('Request failed: ', error.message)
+        }
+
+        setLoading(false)
+        loadConst = false
+    }
+
+    const startLoadingAnimation = ({ counter }: { counter: number }) => {
+        if (loadConst) {
+            switch (counter % 6) {
+                case 0:
+                    setToggleHidden({
+                        one: true,
+                        two: false,
+                        three: false,
+                    })
+                    break
+                case 1:
+                    setToggleHidden({
+                        one: true,
+                        two: true,
+                        three: false,
+                    })
+                    break
+                case 2:
+                    setToggleHidden({
+                        one: true,
+                        two: false,
+                        three: false,
+                    })
+                    break
+                case 3:
+                    setToggleHidden({
+                        one: false,
+                        two: false,
+                        three: true,
+                    })
+                    break
+                case 4:
+                    setToggleHidden({
+                        one: false,
+                        two: true,
+                        three: true,
+                    })
+                    break
+                case 5:
+                    setToggleHidden({
+                        one: false,
+                        two: false,
+                        three: true,
+                    })
+                    break
+            }
+            setTimeout(
+                () => startLoadingAnimation({ counter: counter + 1 }),
+                150
+            )
         }
     }
 
@@ -101,17 +171,49 @@ const Form = () => {
                 </select>
             </div>
             <button
-                onClick={handleConvertion}
+                onClick={handleConversion}
                 disabled={
                     !currentAmount ||
                     !currencyFrom ||
                     !currencyTo ||
-                    currencyFrom === currencyTo
+                    currencyFrom === currencyTo ||
+                    loading
                 }
             >
                 Convert
             </button>
-            {resultText && <div className="result">{resultText}</div>}
+            {loading ? (
+                <div className="loading">
+                    <span
+                        style={{
+                            visibility: toggleHidden.one ? 'hidden' : 'visible',
+                        }}
+                    >
+                        {' '}
+                        .{' '}
+                    </span>
+                    <span
+                        style={{
+                            visibility: toggleHidden.two ? 'hidden' : 'visible',
+                        }}
+                    >
+                        {' '}
+                        .{' '}
+                    </span>
+                    <span
+                        style={{
+                            visibility: toggleHidden.three
+                                ? 'hidden'
+                                : 'visible',
+                        }}
+                    >
+                        {' '}
+                        .{' '}
+                    </span>
+                </div>
+            ) : (
+                resultText && <div className="result">{resultText}</div>
+            )}
         </div>
     )
 }

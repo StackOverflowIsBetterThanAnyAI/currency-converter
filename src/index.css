@@ -226,3 +226,8 @@ select:hover {
     text-align: center;
     font-size: large;
 }
+
+.loading {
+    text-align: center;
+    font-size: x-large;
+}
