@@ -9,7 +9,7 @@
     },
     "action": {
         "default_popup": "index.html",
-        "default_title": "Random Number",
+        "default_title": "Currency Converter",
         "default_icon": {
             "128": "favicon.png"
         }
