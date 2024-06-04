@@ -140,6 +140,7 @@ const Form = () => {
                     value={currentAmount}
                     onKeyDown={BlockInvalidChar}
                     onChange={handleCurrentAmount}
+                    autoFocus
                 />
             </div>
             <div className="labelContainer">
